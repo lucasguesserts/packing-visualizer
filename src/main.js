@@ -2,30 +2,24 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as Draw from './draw.js'
 
+// scene, camera, render
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
   preserveDrawingBuffer: true,
   alpha: true,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0xffffff, 1);
 document.body.appendChild(renderer.domElement);
 
-{
-  const smallItem = new Draw.SmallItem(1, 1, 1, 0, 0, 0)
-  smallItem.draw(scene)
-}
-{
-  const smallItem = new Draw.SmallItem(1, 1, 1, 1.2, 0, 0)
-  smallItem.draw(scene)
-}
-
-const largeObject = new Draw.LargeObject(4, 4, 4)
-largeObject.draw(scene)
-
-camera.position.set(3, 3, 3);
+// large object and small items
+const fileSelector = document.getElementById('file-selector')
+fileSelector.addEventListener('change', (event) => {
+  const fileList = event.target.files
+  Draw.FileLoader.read(fileList[0], scene, camera)
+})
 
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
