@@ -1,0 +1,8 @@
+# thanks to https://github.com/github/gitignore/blob/main/Node.gitignore
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+node_modules/
