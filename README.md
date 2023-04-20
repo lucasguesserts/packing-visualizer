@@ -9,6 +9,10 @@ npm install
 npx vite
 ```
 
+## Examples
+
+![figure of the result](docs/example.png)
+
 ## Open-Source Tools
 
 This project uses the following open-source tools:
