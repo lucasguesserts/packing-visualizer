@@ -1,19 +1,31 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as Draw from './draw.js'
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+  antialias: true,
+  preserveDrawingBuffer: true,
+  alpha: true,
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+{
+  const smallItem = new Draw.SmallItem(1, 1, 1, 0, 0, 0)
+  smallItem.draw(scene)
+}
+{
+  const smallItem = new Draw.SmallItem(1, 1, 1, 1.2, 0, 0)
+  smallItem.draw(scene)
+}
 
-camera.position.z = 5;
+const largeObject = new Draw.LargeObject(4, 4, 4)
+largeObject.draw(scene)
+
+camera.position.set(3, 3, 3);
 
 // orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
