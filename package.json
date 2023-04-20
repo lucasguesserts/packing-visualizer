@@ -1,4 +1,5 @@
 {
+  "name": "packing-visualizer",
   "dependencies": {
     "three": "0.151.3"
   },
