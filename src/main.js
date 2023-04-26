@@ -11,7 +11,7 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(0xffffff, 1);
+renderer.setClearColor(0x8c92ac, 1);
 document.body.appendChild(renderer.domElement);
 
 // large object and small items
