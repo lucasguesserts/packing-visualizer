@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import randomColor from 'randomcolor'
+import OutputChecker from './check_output'
 
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial
@@ -108,6 +109,7 @@ class FileLoader {
     const reader = new FileReader()
     reader.addEventListener('load', (event) => {
       const data = JSON.parse(event.target.result)
+      OutputChecker.check(data)
       FileLoader.cleanScene(scene)
       FileLoader.draw(data, scene)
       FileLoader.moveCamera(data, camera)
