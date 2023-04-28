@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import * as Draw from './draw.js'
 
+import InputChecker from './check_input'
+
 // scene, camera, render
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -19,6 +21,22 @@ const fileSelector = document.getElementById('file-selector')
 fileSelector.addEventListener('change', (event) => {
   const fileList = event.target.files
   Draw.FileLoader.read(fileList[0], scene, camera)
+})
+
+// check input
+const checkInput = document.getElementById('check-input')
+checkInput.addEventListener('change', (event) => {
+  const file = event.target.files[0]
+  if (file.type && !file.type.endsWith('json')) {
+    console.log('File is not a json.', file.type, file)
+    return
+  }
+  const reader = new FileReader()
+  reader.addEventListener('load', (event) => {
+    const data = JSON.parse(event.target.result)
+    InputChecker.check(data)
+  })
+  reader.readAsText(file)
 })
 
 // orbit controls

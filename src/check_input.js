@@ -8,6 +8,8 @@ class InputChecker {
     const isValid = validate(input)
     if (!isValid) {
       console.error(validate.errors)
+    } else {
+      console.log('No problem found in input file')
     }
   }
 }
