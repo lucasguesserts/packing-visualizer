@@ -1,8 +1,5 @@
 import * as THREE from 'three'
-
-function getRandomColor() {
-  return Math.random() * 0x666666
-}
+import randomColor from 'randomcolor'
 
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial
@@ -26,7 +23,7 @@ class SmallItem {
   static makeCuboid(l, w, h, x, y, z) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new SmallItem.MATERIAL({
-      emissive: getRandomColor(),
+      emissive: randomColor({ luminosity: 'dark' }),
       side: THREE.DoubleSide
     })
     const cuboid = new THREE.Mesh(geometry, material)
@@ -104,7 +101,7 @@ class FileLoader {
   static AXES_HELPER_RELATIVE_SIZE = 3
 
   static read(file, scene, camera) {
-    if (file.type && !file.type.endsWith("json")) {
+    if (file.type && !file.type.endsWith('json')) {
       console.log('File is not a json.', file.type, file)
       return
     }
