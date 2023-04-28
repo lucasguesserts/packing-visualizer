@@ -9,19 +9,17 @@ class SmallItem {
     LINE_WIDTH: 3
   }
 
-  constructor(l, w, h, x, y, z) {
+  constructor (l, w, h, x, y, z) {
     this.cuboid = SmallItem.makeCuboid(l, w, h, x, y, z)
     this.edges = SmallItem.makeEdges(l, w, h, x, y, z)
-    return
   }
 
-  draw(scene) {
+  draw (scene) {
     scene.add(this.cuboid)
     scene.add(this.edges)
-    return
   }
 
-  static makeCuboid(l, w, h, x, y, z) {
+  static makeCuboid (l, w, h, x, y, z) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new SmallItem.MATERIAL({
       emissive: randomColor({ luminosity: 'dark' }),
@@ -36,7 +34,7 @@ class SmallItem {
     return cuboid
   }
 
-  static makeEdges(l, w, h, x, y, z) {
+  static makeEdges (l, w, h, x, y, z) {
     const cuboidGeometry = new THREE.BoxGeometry(l, w, h)
     const edgeGeometry = new THREE.EdgesGeometry(cuboidGeometry)
     const edgesMaterial = new THREE.LineBasicMaterial({
@@ -61,19 +59,17 @@ class LargeObject {
     LINE_WIDTH: 3
   }
 
-  constructor(l, w, h) {
+  constructor (l, w, h) {
     this.cuboid = LargeObject.makeCuboid(l, w, h)
     this.edges = LargeObject.makeEdges(l, w, h)
-    return
   }
 
-  draw(scene) {
+  draw (scene) {
     scene.add(this.cuboid)
     scene.add(this.edges)
-    return
   }
 
-  static makeCuboid(l, w, h) {
+  static makeCuboid (l, w, h) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new LargeObject.MATERIAL({
       emissive: LargeObject.COLOR,
@@ -84,7 +80,7 @@ class LargeObject {
     return cuboid
   }
 
-  static makeEdges(l, w, h) {
+  static makeEdges (l, w, h) {
     const cuboidGeometry = new THREE.BoxGeometry(l, w, h)
     const edgeGeometry = new THREE.EdgesGeometry(cuboidGeometry)
     const edgesMaterial = new THREE.LineBasicMaterial({
@@ -101,7 +97,7 @@ class FileLoader {
   static CAMERA_ZOOM_OUT_ON_LOAD = 1.5
   static AXES_HELPER_RELATIVE_SIZE = 3
 
-  static read(file, scene, camera) {
+  static read (file, scene, camera) {
     if (file.type && !file.type.endsWith('json')) {
       console.log('File is not a json.', file.type, file)
       return
@@ -114,18 +110,17 @@ class FileLoader {
       FileLoader.draw(data, scene)
       FileLoader.moveCamera(data, camera)
       FileLoader.addAxes(data, scene)
-    });
+    })
     reader.readAsText(file)
   }
 
-  static cleanScene(scene) {
+  static cleanScene (scene) {
     while (scene.children.length > 0) {
-      scene.remove(scene.children[0]);
+      scene.remove(scene.children[0])
     }
-    return
   }
 
-  static draw(data, scene) {
+  static draw (data, scene) {
     const largeObject = new LargeObject(
       data.large_object.width,
       data.large_object.height,
@@ -143,26 +138,24 @@ class FileLoader {
       )
       smallItem.draw(scene)
     }
-    return
   }
 
-  static moveCamera(data, camera) {
+  static moveCamera (data, camera) {
     camera.position.set(
       FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.width,
       FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.height,
       FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.length
     )
-    return
   }
 
-  static addAxes(data, scene) {
-    const axes = new THREE.AxesHelper();
+  static addAxes (data, scene) {
+    const axes = new THREE.AxesHelper()
     axes.scale.set(
       FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.width,
       FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.height,
       FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.length
-    );
-    scene.add(axes);
+    )
+    scene.add(axes)
   }
 }
 
