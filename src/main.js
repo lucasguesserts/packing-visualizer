@@ -2,7 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import * as Draw from './draw.js'
 
-import InputChecker from './check_input'
+import InputChecker from './check/InputChecker.js'
 
 // scene, camera, render
 const scene = new THREE.Scene()
