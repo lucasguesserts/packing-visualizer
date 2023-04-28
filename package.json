@@ -1,6 +1,7 @@
 {
   "name": "packing-visualizer",
   "dependencies": {
+    "randomcolor": "^0.6.2",
     "three": "0.151.3"
   },
   "devDependencies": {
