@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: Packing Visualizer
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Lucas
+    family-names: Guesser
+    email: lucasguesserts@gmail.com
+    orcid: 'https://orcid.org/0009-0000-6272-4061'
+identifiers:
+  - type: url
+    value: 'https://github.com/lucasguesserts'
+    description: github
+  - type: url
+    value: 'https://www.linkedin.com/in/lucasguesserts/'
+    description: linkedin
+  - type: url
+    value: 'https://lattes.cnpq.br/5397783811561318'
+    description: lattes
+repository-code: 'https://github.com/lucasguesserts/packing-visualizer'
+abstract: >-
+  A simple web-based tool to visualize packing of
+  rectangular items.
+keywords:
+  - visualization
+  - packing problem
+  - container loading problem
+license: MIT
