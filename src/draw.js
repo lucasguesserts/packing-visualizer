@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import randomColor from 'randomcolor'
 
+import InputChecker from './check_input'
+
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial
   static EDGE = {
@@ -108,6 +110,7 @@ class FileLoader {
     const reader = new FileReader()
     reader.addEventListener('load', (event) => {
       const data = JSON.parse(event.target.result)
+      InputChecker.check(data)
       FileLoader.cleanScene(scene)
       FileLoader.draw(data, scene)
       FileLoader.moveCamera(data, camera)
