@@ -1,5 +1,5 @@
 import Ajv from 'ajv/dist/2020'
-import v_0_0_0 from '../file_format/input/0_0_0.json'
+import v_0_0_0 from '../file_format/input/0_0_0.json' // eslint-disable-line camelcase
 
 class InputChecker {
   static check (data) {

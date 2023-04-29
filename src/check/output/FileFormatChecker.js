@@ -1,5 +1,5 @@
 import Ajv from 'ajv/dist/2020'
-import v_0_1_0 from '../../file_format/output/0_1_0.json'
+import v_0_1_0 from '../../file_format/output/0_1_0.json' // eslint-disable-line camelcase
 
 class FileFormatChecker {
   constructor (data) {
