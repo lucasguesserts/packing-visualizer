@@ -12,6 +12,11 @@
     "vite": "4.3.0"
   },
   "scripts": {
-    "test": "standard"
+    "test": "npx standard && node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }
