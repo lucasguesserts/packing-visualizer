@@ -32,22 +32,26 @@ class OutputChecker {
   }
 
   static _findOverlaps (data) {
-    const TOLERANCE = 1e-6
     const items = data.small_items
     const overlaps = []
     for (let firstIndex = 0; firstIndex < items.length; ++firstIndex) {
       const first = items[firstIndex]
       for (let secondIndex = firstIndex + 1; secondIndex < items.length; ++secondIndex) {
         const second = items[secondIndex]
-        const overlapX = ((first.x + TOLERANCE) < (second.x + second.length)) && ((second.x + TOLERANCE) < (first.x + first.length))
-        const overlapY = ((first.y + TOLERANCE) < (second.y + second.length)) && ((second.y + TOLERANCE) < (first.y + first.length))
-        const overlapZ = ((first.z + TOLERANCE) < (second.z + second.length)) && ((second.z + TOLERANCE) < (first.z + first.length))
+        const overlapX = OutputChecker._hasOverlap(first.x, first.x + first.length, second.x, second.x + second.length)
+        const overlapY = OutputChecker._hasOverlap(first.y, first.y + first.width, second.y, second.y + second.width)
+        const overlapZ = OutputChecker._hasOverlap(first.z, first.z + first.height, second.z, second.z + second.height)
         if (overlapX && overlapY && overlapZ) {
           overlaps.push({ firstIndex, first, secondIndex, second })
         }
       }
     }
     return overlaps
+  }
+
+  static _hasOverlap (lhsXi, lhsXf, rhsXi, rhsXf) {
+    const TOLERANCE = 1e-6
+    return ((lhsXi + TOLERANCE) < rhsXf) && ((rhsXi + TOLERANCE) < lhsXf)
   }
 }
 
