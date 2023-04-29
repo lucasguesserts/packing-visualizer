@@ -11,7 +11,7 @@ npx vite
 
 ## Examples
 
-![figure of the result](docs/example.png)
+![figure of the result](docs/figures/visualization.png)
 
 ## Open-Source Tools
 
