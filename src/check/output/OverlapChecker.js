@@ -6,6 +6,14 @@ class OverlapChecker {
     this.overlaps = this._findOverlaps()
   }
 
+  get numberOfOverlaps () {
+    return this.overlaps.length
+  }
+
+  get hasOverlap () {
+    return this.overlaps.length > 0
+  }
+
   log () {
     for (const overlap of this.overlaps) {
       console.error(`There is an overlap between the items ${overlap.firstIndex} and ${overlap.secondIndex}`)
