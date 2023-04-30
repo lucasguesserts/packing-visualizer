@@ -7,10 +7,16 @@
     "three": "0.151.3"
   },
   "devDependencies": {
+    "jest": "29.5.0",
     "standard": "17.0.0",
     "vite": "4.3.0"
   },
   "scripts": {
-    "test": "standard"
+    "test": "npx standard && node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }

@@ -31,7 +31,7 @@ checkInput.addEventListener('change', (event) => {
     console.log('File is not a json.', file.type, file)
     return
   }
-  const reader = new FileReader()
+  const reader = new FileReader() // eslint-disable-line no-undef
   reader.addEventListener('load', (event) => {
     const data = JSON.parse(event.target.result)
     InputChecker.check(data)
@@ -64,7 +64,7 @@ function onWindowResize (event) {
 }
 
 function animate () {
-  requestAnimationFrame(animate)
+  requestAnimationFrame(animate) // eslint-disable-line no-undef
   controls.update()
   renderer.render(scene, camera)
 }

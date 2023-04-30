@@ -102,7 +102,7 @@ class FileLoader {
       console.log('File is not a json.', file.type, file)
       return
     }
-    const reader = new FileReader()
+    const reader = new FileReader() // eslint-disable-line no-undef
     reader.addEventListener('load', (event) => {
       const data = JSON.parse(event.target.result)
       OutputChecker.check(data)

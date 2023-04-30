@@ -1,5 +1,5 @@
 import Ajv from 'ajv/dist/2020'
-import v_0_1_0 from '../../file_format/output/0_1_0.json' // eslint-disable-line camelcase
+import v_0_0_0 from '../../file_format/input/0_0_0.json' // eslint-disable-line camelcase
 
 class FileFormatChecker {
   constructor (data) {
@@ -13,15 +13,15 @@ class FileFormatChecker {
     if (!this.isValid) {
       console.error(this.errors)
     } else {
-      console.log('No problem found in output file')
+      console.log('No problem found in input file')
     }
   }
 
   _getValidator (version) {
     const ajv = new Ajv()
     switch (version) {
-      case '0.1.0':
-        return ajv.compile(v_0_1_0)
+      case '0.0.0':
+        return ajv.compile(v_0_0_0)
       default:
         return this._invalidVersionValidator()
     }
@@ -31,7 +31,7 @@ class FileFormatChecker {
     function Validator (data) {
       return false
     }
-    Validator.errors = `The version ${this.data.version} of the output is not supported`
+    Validator.errors = `The version ${this.data.version} of the input is not supported`
     return Validator
   }
 }

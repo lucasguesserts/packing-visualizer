@@ -13,6 +13,10 @@ class OutsideItemsFinder {
     }
   }
 
+  hasItemOutsideLimits () {
+    return this.itemsOutsideLargeObject.length === 0
+  }
+
   _findItemsOutsideLargeObject () {
     const itemsOutsideLargeObject = []
     for (let itemIndex = 0; itemIndex < this.smallItems.length; ++itemIndex) {

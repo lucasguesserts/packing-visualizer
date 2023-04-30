@@ -1,0 +1,19 @@
+{
+  "type": "output",
+  "version": "0.1.0",
+  "large_object": {
+    "length": 10,
+    "width": 10,
+    "height": 10
+  },
+  "small_items": [
+    {
+      "length": 1,
+      "width": 1,
+      "height": 1,
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  ]
+}
