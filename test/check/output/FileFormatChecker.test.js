@@ -13,7 +13,10 @@ describe('outside items finder', () => {
     ['5', false],
     ['6', false],
     ['7', false],
-    ['8', false]
+    ['8', false],
+    ['9', true],
+    ['10', false],
+    ['11', false]
   ]
   for (const [caseName, expected] of cases) {
     test(`case ${caseName}`, () => {
