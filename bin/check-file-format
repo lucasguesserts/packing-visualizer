@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
 require = require('esm')(module)
-require('../src/cli/check-output').cli()
+require('../src/cli/check-file-format').cli()

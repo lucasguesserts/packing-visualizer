@@ -16,7 +16,7 @@
     "test": "npx standard && node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "bin": {
-    "check-output": "bin/check-output"
+    "check-file-format": "bin/check-file-format"
   },
   "standard": {
     "env": [
