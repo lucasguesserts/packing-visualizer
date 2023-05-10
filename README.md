@@ -6,7 +6,7 @@ A simple web-based tool to visualize packing of rectangular items.
 
 ```sh
 npm install
-npx vite
+npx start
 ```
 
 ## Examples
