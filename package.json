@@ -1,8 +1,8 @@
 {
   "name": "packing-visualizer",
-  "type": "module",
   "dependencies": {
     "ajv": "8.12.0",
+    "esm": "3.2.25",
     "randomcolor": "0.6.2",
     "three": "0.151.3"
   },
