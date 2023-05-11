@@ -14,6 +14,7 @@ npx start
 ```sh
 npm link
 check-output OUTPUT_FILE
+analyse-data RESULTS_OUTPUT_DIR CSV_FILE_PATH_TO_SAVE
 ```
 
 ## Examples
