@@ -1,6 +1,6 @@
-import FileFormatChecker from './output/FileFormatChecker.js'
-import OutsideItemsFinder from './output/OutsideItemsFinder.js'
-import OverlapChecker from './output/OverlapChecker.js'
+import FileFormatChecker from './output/FileFormatChecker.mjs'
+import OutsideItemsFinder from './output/OutsideItemsFinder.mjs'
+import OverlapChecker from './output/OverlapChecker.mjs'
 
 class OutputChecker {
   static check (data) {

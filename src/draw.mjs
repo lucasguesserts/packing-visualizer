@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import randomColor from 'randomcolor'
-import OutputChecker from './check/OutputChecker.js'
+import OutputChecker from './check/OutputChecker.mjs'
 
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial

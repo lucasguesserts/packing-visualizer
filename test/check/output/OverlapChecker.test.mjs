@@ -1,4 +1,4 @@
-import OverlapChecker from '../../../src/check/output/OverlapChecker.js'
+import OverlapChecker from '../../../src/check/output/OverlapChecker.mjs'
 import fs from 'fs'
 import path from 'path'
 

@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "vite",
-    "test": "npx standard && node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "npx standard && node --experimental-vm-modules node_modules/jest/bin/jest.js --testRegex '.test.mjs'"
   },
   "bin": {
     "check-file-format": "bin/check-file-format"

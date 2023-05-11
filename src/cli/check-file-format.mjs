@@ -1,6 +1,6 @@
 import fs from 'fs'
-import InputChecker from '../check/InputChecker.js'
-import OutputChecker from '../check/OutputChecker.js'
+import InputChecker from '../check/InputChecker.mjs'
+import OutputChecker from '../check/OutputChecker.mjs'
 
 export function cli () {
   const filePath = process.argv[2]

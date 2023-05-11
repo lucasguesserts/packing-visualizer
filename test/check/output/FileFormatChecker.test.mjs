@@ -1,8 +1,8 @@
-import FileFormatChecker from '../../../src/check/input/FileFormatChecker.js'
+import FileFormatChecker from '../../../src/check/output/FileFormatChecker.mjs'
 import fs from 'fs'
 import path from 'path'
 
-const dataDir = './test/data/check/input/FileFormatChecker/'
+const dataDir = './test/data/check/output/FileFormatChecker/'
 
 describe('outside items finder', () => {
   const cases = [
@@ -12,7 +12,11 @@ describe('outside items finder', () => {
     ['4', false],
     ['5', false],
     ['6', false],
-    ['7', false]
+    ['7', false],
+    ['8', false],
+    ['9', true],
+    ['10', false],
+    ['11', false]
   ]
   for (const [caseName, expected] of cases) {
     test(`case ${caseName}`, () => {
