@@ -1,4 +1,4 @@
-import FileFormatChecker from './input/FileFormatChecker.js'
+import FileFormatChecker from './input/FileFormatChecker.mjs'
 
 class InputChecker {
   static check (data) {

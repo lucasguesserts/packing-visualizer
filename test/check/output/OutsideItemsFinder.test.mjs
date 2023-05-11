@@ -1,4 +1,4 @@
-import OutsideItemsFinder from '../../../src/check/output/OutsideItemsFinder.js'
+import OutsideItemsFinder from '../../../src/check/output/OutsideItemsFinder.mjs'
 import fs from 'fs'
 import path from 'path'
 

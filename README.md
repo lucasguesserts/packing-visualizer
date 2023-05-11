@@ -9,6 +9,13 @@ npm install
 npx start
 ```
 
+## CLI tools
+
+```sh
+npm link
+check-output OUTPUT_FILE
+```
+
 ## Examples
 
 ![figure of the result](docs/figures/visualization.png)
