@@ -1,0 +1,28 @@
+#!/bin/sh
+
+NUMBER_OF_JOBS=$(nproc)
+
+export LOG_FILE=check.log
+echo "" > $LOG_FILE
+
+export DATA_DIR=$(realpath $1)
+if [ ! -d $DATA_DIR ]
+then
+    echo "The data dir '$DATA_DIR' does not exist."
+    exit 1
+fi
+
+run_check () {
+    TYPE_TO_CHECK=$1
+    INSTANCE_SET_NUMBER=$2
+    INSTANCE_NUMBER=$3
+    echo -e "\ncheck ${TYPE_TO_CHECK} of instance ${INSTANCE_NUMBER} of set ${INSTANCE_SET_NUMBER}"
+    check-file-format ${DATA_DIR}/${TYPE_TO_CHECK}/set_${INSTANCE_SET_NUMBER}/${INSTANCE_NUMBER}.json
+}
+export -f run_check
+
+ALL_INSTACE_SET_NUMBERS=$(seq 1 10)
+ALL_INSTACES=$(seq 1 100)
+
+parallel -j ${NUMBER_OF_JOBS} run_check ::: input ::: ${ALL_INSTACE_SET_NUMBERS} ::: ${ALL_INSTACES} 2>&1 | tee -a $LOG_FILE
+parallel -j ${NUMBER_OF_JOBS} run_check ::: output ::: ${ALL_INSTACE_SET_NUMBERS} ::: ${ALL_INSTACES} 2>&1 | tee -a $LOG_FILE
