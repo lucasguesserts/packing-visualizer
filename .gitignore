@@ -6,3 +6,8 @@ logs
 
 # Dependency directories
 node_modules/
+
+# temporary
+*foo*
+*goo*
+*hoo*
