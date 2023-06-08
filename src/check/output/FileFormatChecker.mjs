@@ -1,6 +1,7 @@
 import Ajv from 'ajv/dist/2020'
 import v_0_1_0 from '../../file_format/output/0_1_0.json' // eslint-disable-line camelcase
 import v_0_2_0 from '../../file_format/output/0_2_0.json' // eslint-disable-line camelcase
+import v_0_3_0 from '../../file_format/output/0_3_0.json' // eslint-disable-line camelcase
 
 class FileFormatChecker {
   constructor (data) {
@@ -25,6 +26,8 @@ class FileFormatChecker {
         return ajv.compile(v_0_1_0)
       case '0.2.0':
         return ajv.compile(v_0_2_0)
+      case '0.3.0':
+        return ajv.compile(v_0_3_0)
       default:
         return this._invalidVersionValidator()
     }
