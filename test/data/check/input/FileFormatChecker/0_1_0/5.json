@@ -1,0 +1,22 @@
+{
+  "type": "input",
+  "version": "0.1.0",
+  "extra_property": "WRONG",
+  "large_object": {
+    "measurement": {
+      "x": 5,
+      "y": 5,
+      "z": 5
+    }
+  },
+  "small_items": [
+    {
+      "measurement": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      },
+      "quantity": 100
+    }
+  ]
+}
