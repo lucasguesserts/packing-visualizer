@@ -1,0 +1,18 @@
+{
+  "toConvert": {
+    "type": "output",
+    "version": "0.2.0",
+    "large_object": {
+      "length": 100,
+      "width": 200,
+      "height": 300
+    },
+    "small_items": [
+    ]
+  },
+  "expected": {
+    "type": "output",
+    "version": "0.2.0",
+    "description": "this should throw an error because the conversion is not defined for those versions"
+  }
+}
