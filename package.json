@@ -18,7 +18,8 @@
   },
   "bin": {
     "check-file-format": "bin/check-file-format",
-    "analyse-data": "bin/analyse-data"
+    "analyse-data": "bin/analyse-data",
+    "convert-output": "bin/convert-output"
   },
   "standard": {
     "env": [
