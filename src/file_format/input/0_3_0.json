@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Schema of instances of the Single Large Object Placement Problem",
+  "description": "Json Schema describing the input format of the Single Large Object Placement Problem (SLOPP).",
+  "type": "object",
+  "required": [
+    "type",
+    "version",
+    "large_object",
+    "small_items"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "const": "input"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^0\\.[13]\\.0$"
+    },
+    "large_object": {
+      "type": "object",
+      "required": [
+        "measurement"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "measurement": {
+          "$ref": "#/$defs/3D-measurement"
+        }
+      }
+    },
+    "small_items": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "measurement",
+          "quantity"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "measurement": {
+            "$ref": "#/$defs/3D-measurement"
+          },
+          "quantity": {
+            "$ref": "#/$defs/quantity"
+          },
+          "constraint": {
+            "$ref": "#/$defs/item-related-constraints"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "3D-measurement": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/measurement"
+        },
+        "y": {
+          "$ref": "#/$defs/measurement"
+        },
+        "z": {
+          "$ref": "#/$defs/measurement"
+        }
+      }
+    },
+    "measurement": {
+      "type": "integer",
+      "exclusiveMinimum": 0
+    },
+    "quantity": {
+      "type": "integer",
+      "exclusiveMinimum": 0
+    },
+    "orientation": {
+      "type": "boolean"
+    },
+    "3D-orientation": {
+      "type": "object",
+      "required": [
+        "xyz",
+        "yxz",
+        "zyx",
+        "xzy",
+        "zxy",
+        "yzx"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "xyz": {
+          "const": true
+        },
+        "yxz": {
+          "$ref": "#/$defs/orientation"
+        },
+        "zyx": {
+          "$ref": "#/$defs/orientation"
+        },
+        "xzy": {
+          "$ref": "#/$defs/orientation"
+        },
+        "zxy": {
+          "$ref": "#/$defs/orientation"
+        },
+        "yzx": {
+          "$ref": "#/$defs/orientation"
+        }
+      }
+    },
+    "item-related-constraints": {
+      "type": "object",
+      "required": [
+        "orientation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "orientation": {
+          "$ref": "#/$defs/3D-orientation"
+        }
+      }
+    }
+  }
+}
