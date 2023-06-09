@@ -1,6 +1,9 @@
 import * as THREE from 'three'
 import randomColor from 'randomcolor'
 import OutputChecker from './check/OutputChecker.mjs'
+import OutputConversor from './convert/output/OutputConversor.mjs'
+
+const supportedOutputFileFormatVersion = '0.3.0'
 
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial
@@ -104,7 +107,10 @@ class FileLoader {
     }
     const reader = new FileReader() // eslint-disable-line no-undef
     reader.addEventListener('load', (event) => {
-      const data = JSON.parse(event.target.result)
+      let data = JSON.parse(event.target.result)
+      if (data.version !== supportedOutputFileFormatVersion) {
+        data = OutputConversor.convert(data, supportedOutputFileFormatVersion)
+      }
       OutputChecker.check(data)
       FileLoader.cleanScene(scene)
       FileLoader.draw(data, scene)
@@ -122,19 +128,19 @@ class FileLoader {
 
   static draw (data, scene) {
     const largeObject = new LargeObject(
-      data.large_object.width,
-      data.large_object.height,
-      data.large_object.length
+      data.large_object.measurement.y,
+      data.large_object.measurement.z,
+      data.large_object.measurement.x
     )
     largeObject.draw(scene)
     for (const item of data.small_items) {
       const smallItem = new SmallItem(
-        item.width,
-        item.height,
-        item.length,
-        item.y,
-        item.z,
-        item.x
+        item.measurement.y,
+        item.measurement.z,
+        item.measurement.x,
+        item.position.y,
+        item.position.z,
+        item.position.x
       )
       smallItem.draw(scene)
     }
@@ -142,18 +148,18 @@ class FileLoader {
 
   static moveCamera (data, camera) {
     camera.position.set(
-      FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.width,
-      FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.height,
-      FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.length
+      FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.measurement.y,
+      FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.measurement.z,
+      FileLoader.CAMERA_ZOOM_OUT_ON_LOAD * data.large_object.measurement.x
     )
   }
 
   static addAxes (data, scene) {
     const axes = new THREE.AxesHelper()
     axes.scale.set(
-      FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.width,
-      FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.height,
-      FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.length
+      FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.measurement.y,
+      FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.measurement.z,
+      FileLoader.AXES_HELPER_RELATIVE_SIZE * data.large_object.measurement.x
     )
     scene.add(axes)
   }
