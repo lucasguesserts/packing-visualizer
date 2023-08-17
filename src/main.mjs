@@ -12,6 +12,7 @@ const renderer = new THREE.WebGLRenderer({
   preserveDrawingBuffer: true,
   alpha: true
 })
+const slider = new Draw.Slider(document.getElementById('slideRange'))
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setClearColor(0x8c92ac, 1)
 document.body.appendChild(renderer.domElement)
@@ -20,7 +21,7 @@ document.body.appendChild(renderer.domElement)
 const fileSelector = document.getElementById('file-selector')
 fileSelector.addEventListener('change', (event) => {
   const fileList = event.target.files
-  Draw.FileLoader.read(fileList[0], scene, camera)
+  const fileLoader = new Draw.FileLoader(fileList[0], scene, slider, camera)
 })
 
 // check input
