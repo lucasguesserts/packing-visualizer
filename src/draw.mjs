@@ -6,7 +6,7 @@ import OutputConversor from './convert/output/OutputConversor.mjs'
 const supportedOutputFileFormatVersion = '0.3.0'
 
 class Slider {
-  constructor(slider) {
+  constructor (slider) {
     this.slider = slider
     this.slider.min = 0
     this.object = {}
@@ -17,13 +17,13 @@ class Slider {
     }
   }
 
-  addSmallItem(smallItem) {
+  addSmallItem (smallItem) {
     this.object.cuboid.push(smallItem.cuboid)
     this.object.edges.push(smallItem.edges)
     ++this.slider.max
   }
 
-  _setVisibility() {
+  _setVisibility () {
     for (let i = 0; i < this.slider.value; ++i) {
       this.object.cuboid[i].visible = true
       this.object.edges[i].visible = true
@@ -42,17 +42,17 @@ class SmallItem {
     LINE_WIDTH: 3
   }
 
-  constructor(l, w, h, x, y, z) {
+  constructor (l, w, h, x, y, z) {
     this.cuboid = SmallItem.makeCuboid(l, w, h, x, y, z)
     this.edges = SmallItem.makeEdges(l, w, h, x, y, z)
   }
 
-  draw(scene) {
+  draw (scene) {
     scene.add(this.cuboid)
     scene.add(this.edges)
   }
 
-  static makeCuboid(l, w, h, x, y, z) {
+  static makeCuboid (l, w, h, x, y, z) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new SmallItem.MATERIAL({
       emissive: randomColor({ luminosity: 'dark' }),
@@ -67,7 +67,7 @@ class SmallItem {
     return cuboid
   }
 
-  static makeEdges(l, w, h, x, y, z) {
+  static makeEdges (l, w, h, x, y, z) {
     const cuboidGeometry = new THREE.BoxGeometry(l, w, h)
     const edgeGeometry = new THREE.EdgesGeometry(cuboidGeometry)
     const edgesMaterial = new THREE.LineBasicMaterial({
@@ -92,17 +92,17 @@ class LargeObject {
     LINE_WIDTH: 3
   }
 
-  constructor(l, w, h) {
+  constructor (l, w, h) {
     this.cuboid = LargeObject.makeCuboid(l, w, h)
     this.edges = LargeObject.makeEdges(l, w, h)
   }
 
-  draw(scene) {
+  draw (scene) {
     scene.add(this.cuboid)
     scene.add(this.edges)
   }
 
-  static makeCuboid(l, w, h) {
+  static makeCuboid (l, w, h) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new LargeObject.MATERIAL({
       emissive: LargeObject.COLOR,
@@ -113,7 +113,7 @@ class LargeObject {
     return cuboid
   }
 
-  static makeEdges(l, w, h) {
+  static makeEdges (l, w, h) {
     const cuboidGeometry = new THREE.BoxGeometry(l, w, h)
     const edgeGeometry = new THREE.EdgesGeometry(cuboidGeometry)
     const edgesMaterial = new THREE.LineBasicMaterial({
@@ -127,15 +127,15 @@ class LargeObject {
 }
 
 class FileLoader {
-  get CAMERA_ZOOM_OUT_ON_LOAD() {
+  get CAMERA_ZOOM_OUT_ON_LOAD () {
     return 1.5
   }
 
-  get AXES_HELPER_RELATIVE_SIZE() {
+  get AXES_HELPER_RELATIVE_SIZE () {
     return 3
   }
 
-  constructor(file, scene, slider, camera) {
+  constructor (file, scene, slider, camera) {
     if (file.type && !file.type.endsWith('json')) {
       console.log('File is not a json.', file.type, file)
       return
@@ -152,7 +152,7 @@ class FileLoader {
     reader.readAsText(file)
   }
 
-  draw(scene, slider, camera) {
+  draw (scene, slider, camera) {
     this._cleanScene(scene)
     this._addLargeObject(scene)
     this._addSmallItems(scene, slider)
@@ -160,13 +160,13 @@ class FileLoader {
     this._moveCamera(camera)
   }
 
-  _cleanScene(scene) {
+  _cleanScene (scene) {
     while (scene.children.length > 0) {
       scene.remove(scene.children[0])
     }
   }
 
-  _addLargeObject(scene) {
+  _addLargeObject (scene) {
     const largeObject = new LargeObject(
       this.data.large_object.measurement.y,
       this.data.large_object.measurement.z,
@@ -175,7 +175,7 @@ class FileLoader {
     largeObject.draw(scene)
   }
 
-  _addSmallItems(scene, slider) {
+  _addSmallItems (scene, slider) {
     for (const item of this.data.small_items) {
       const smallItem = new SmallItem(
         item.measurement.y,
@@ -190,7 +190,7 @@ class FileLoader {
     }
   }
 
-  _addAxes(scene) {
+  _addAxes (scene) {
     const axes = new THREE.AxesHelper()
     axes.scale.set(
       this.AXES_HELPER_RELATIVE_SIZE * this.data.large_object.measurement.y,
@@ -200,7 +200,7 @@ class FileLoader {
     scene.add(axes)
   }
 
-  _moveCamera(camera) {
+  _moveCamera (camera) {
     camera.position.set(
       this.CAMERA_ZOOM_OUT_ON_LOAD * this.data.large_object.measurement.y,
       this.CAMERA_ZOOM_OUT_ON_LOAD * this.data.large_object.measurement.z,
