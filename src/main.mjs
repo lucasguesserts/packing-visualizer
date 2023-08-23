@@ -37,9 +37,9 @@ fileSelector.addEventListener('change', (event) => {
 // check input
 const checkInput = document.getElementById('check-input')
 checkInput.addEventListener('change', (event) => {
-  const file = event.target.files[0]
-  if (file.type && !file.type.endsWith('json')) {
-    console.log('File is not a json.', file.type, file)
+  const fileToRead = event.target.files[0]
+  if (fileToRead.type && !fileToRead.type.endsWith('json')) {
+    console.error(`File '${fileToRead}' is not a json, it is a ${fileToRead.type}.`)
     return
   }
   const reader = new FileReader() // eslint-disable-line no-undef
@@ -47,7 +47,7 @@ checkInput.addEventListener('change', (event) => {
     const data = JSON.parse(event.target.result)
     InputChecker.check(data)
   })
-  reader.readAsText(file)
+  reader.readAsText(fileToRead)
 })
 
 // orbit controls
