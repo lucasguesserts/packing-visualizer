@@ -1,0 +1,30 @@
+{
+  "type": "output",
+  "version": "0.5.0",
+  "large_object": {
+    "measurement": {
+      "x": 5,
+      "y": 5,
+      "z": 5
+    }
+  },
+  "small_items": [
+    {
+      "measurement": {
+        "x": 5,
+        "y": 5,
+        "z": 5
+      },
+      "position": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ],
+  "appendix": {
+    "empty_spaces": [
+      []
+    ]
+  }
+}

@@ -47,3 +47,11 @@ describe('0.3.0 to 0.4.0', () => {
     caseCheck(subdirName, caseName)
   }
 })
+
+describe('0.4.0 to 0.5.0', () => {
+  const subdirName = '0_4_0_to_0_5_0/'
+  const cases = ['1']
+  for (const caseName of cases) {
+    caseCheck(subdirName, caseName)
+  }
+})

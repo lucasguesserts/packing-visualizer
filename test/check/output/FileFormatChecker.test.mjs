@@ -58,3 +58,16 @@ describe('0.3.0', () => {
     caseCheck(subdirName, caseName, expected)
   }
 })
+
+describe('0.5.0', () => {
+  const subdirName = '0_5_0/'
+  const cases = [
+    ['1', true],
+    ['2', true],
+    ['3', true],
+    ['4', false]
+  ]
+  for (const [caseName, expected] of cases) {
+    caseCheck(subdirName, caseName, expected)
+  }
+})

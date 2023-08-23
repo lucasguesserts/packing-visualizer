@@ -3,67 +3,94 @@ import randomColor from 'randomcolor'
 import OutputChecker from './check/OutputChecker.mjs'
 import OutputConversor from './convert/output/OutputConversor.mjs'
 
-const supportedOutputFileFormatVersion = '0.4.0'
+const supportedOutputFileFormatVersion = '0.5.0'
 
-class Slider {
-  constructor (slider) {
+class VisibilityController {
+  constructor (slider, button) {
     this.slider = slider
-    this.slider.min = 0
-    this.object = {}
-    this.object.cuboid = []
-    this.object.edges = []
+    this.button = button
+    this.reset()
     this.slider.oninput = () => {
-      this._setVisibility()
+      this._sliderSetVisibility()
+    }
+    this.button.onchange = () => {
+      this._setEmptySpacesVisibility()
     }
   }
 
   addSmallItem (smallItem) {
-    this.object.cuboid.push(smallItem.cuboid)
-    this.object.edges.push(smallItem.edges)
+    this.cuboid.push(smallItem.cuboid)
+    this.edges.push(smallItem.edges)
     ++this.slider.max
     ++this.slider.value
   }
 
+  addEmptySpaceSet (emptySpaceSet) {
+    this.emptySpaceSet.push(emptySpaceSet)
+  }
+
   reset () {
+    this._resetSlider()
+    this._resetButton()
+    this._resetData()
+  }
+
+  _resetSlider () {
+    this.slider.min = 0
     this.slider.value = 0
     this.slider.max = 0
-    this.object.cuboid = []
-    this.object.edges = []
+    this.slider.step = 1
   }
 
-  _setVisibility () {
+  _resetButton () {
+    this.button.checked = false
+  }
+
+  _resetData () {
+    this.cuboid = []
+    this.edges = []
+    this.emptySpaceSet = []
+  }
+
+  _sliderSetVisibility () {
+    this._setSmallItemsVisibility()
+    this._setEmptySpacesVisibility()
+  }
+
+  _setSmallItemsVisibility () {
+    // set small items visibility
+    // small items before 'slider.value' are visible,
     for (let i = 0; i < this.slider.value; ++i) {
-      this.object.cuboid[i].visible = true
-      this.object.edges[i].visible = true
+      this.cuboid[i].visible = true
+      this.edges[i].visible = true
     }
+    // small items after 'slider.value' are invisible
     for (let i = this.slider.value; i < this.slider.max; ++i) {
-      this.object.cuboid[i].visible = false
-      this.object.edges[i].visible = false
-    }
-  }
-}
-
-class Button {
-  constructor (button) {
-    this.button = button
-    this.button.checked = false
-    this.emptySpaces = []
-    this.button.onclick = () => {
-      this._setVisibility()
+      this.cuboid[i].visible = false
+      this.edges[i].visible = false
     }
   }
 
-  addEmptySpace (emptySpace) {
-    this.emptySpaces.push(emptySpace.cuboid)
+  _setEmptySpacesVisibility () {
+    // set empty spaces visibility
+    // previous empty spaces are not visible
+    for (const emptySpaceSet of this.emptySpaceSet) {
+      for (const emptySpace of emptySpaceSet) {
+        emptySpace.cuboid.visible = false
+      }
+    }
+    // current empty spaces are visible
+    // if button is checked
+    if (this.slider.value > 0) {
+      for (const emptySpace of this.emptySpaceSet[this.slider.value - 1]) {
+        emptySpace.cuboid.visible = this.button.checked
+      }
+    }
   }
 
-  reset () {
-    this.slider.empty_spaces = []
-    this.button.checked = false
-  }
-
-  _setVisibility () {
-    for (const emptySpace of this.emptySpaces) {
+  _buttonSetVisibility () {
+    const currentEmptySpaceSet = this.emptySpaceSet[this.slider.value]
+    for (const emptySpace of currentEmptySpaceSet) {
       emptySpace.visible = this.button.checked
     }
   }
@@ -209,12 +236,12 @@ class Artist {
     OutputChecker.check(this.data)
   }
 
-  draw (scene, camera, slider, emptySpacesButton) {
-    slider.reset()
+  draw (scene, camera, visibilityController) {
+    visibilityController.reset()
     this._cleanScene(scene)
     this._addLargeObject(scene)
-    this._addSmallItems(scene, slider)
-    this._addEmptySpaces(scene, emptySpacesButton)
+    this._addSmallItems(scene, visibilityController)
+    this._addEmptySpaces(scene, visibilityController)
     this._addAxes(scene)
     this._moveCamera(camera)
   }
@@ -251,17 +278,18 @@ class Artist {
 
   _addEmptySpaces (scene, emptySpacesButton) {
     if (Object.hasOwn(this.data, 'appendix') && Object.hasOwn(this.data.appendix, 'empty_spaces')) {
-      for (const emptySpaceData of this.data.appendix.empty_spaces) {
-        const emptySpace = new EmptySpace(
-          emptySpaceData.measurement.y,
-          emptySpaceData.measurement.z,
-          emptySpaceData.measurement.x,
-          emptySpaceData.position.y,
-          emptySpaceData.position.z,
-          emptySpaceData.position.x
-        )
-        emptySpace.draw(scene)
-        emptySpacesButton.addEmptySpace(emptySpace)
+      for (const emptySpaceSetData of this.data.appendix.empty_spaces) {
+        const emptySpaceSet = emptySpaceSetData.map(
+          (emptySpaceData) => new EmptySpace(
+            emptySpaceData.measurement.y,
+            emptySpaceData.measurement.z,
+            emptySpaceData.measurement.x,
+            emptySpaceData.position.y,
+            emptySpaceData.position.z,
+            emptySpaceData.position.x
+          ))
+        emptySpaceSet.forEach(emptySpace => emptySpace.draw(scene))
+        emptySpacesButton.addEmptySpaceSet(emptySpaceSet)
       }
     }
   }
@@ -313,4 +341,4 @@ class Reader {
   }
 }
 
-export { Slider, SmallItem, LargeObject, EmptySpace, Artist, Reader, Button }
+export { SmallItem, LargeObject, EmptySpace, Artist, Reader, VisibilityController }
