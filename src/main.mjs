@@ -13,6 +13,7 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true
 })
 const slider = new Draw.Slider(document.getElementById('slideRange'))
+const emptySpacesButton = new Draw.Button(document.getElementById('display-empty-space'))
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setClearColor(0x8c92ac, 1)
 document.body.appendChild(renderer.domElement)
@@ -22,7 +23,7 @@ const drawFileSelector = document.getElementById('draw-file-selector')
 const drawReader = new Draw.Reader(drawFileSelector)
 drawReader.setup((data) => {
   const artist = new Draw.Artist(data)
-  artist.draw(scene, slider, camera)
+  artist.draw(scene, camera, slider, emptySpacesButton)
 })
 
 // check input

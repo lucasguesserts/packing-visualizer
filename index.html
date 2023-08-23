@@ -50,12 +50,17 @@
     <label for="draw-file-selector">Load Output</label>
     <input type="file" id="draw-file-selector" accept=".json">
 
+    <label for="display-empty-space">Display Empty Spaces?</label>
+    <input type="checkbox" id="display-empty-space" name="display-empty-space" value="Bike">
+
+    <br><br>
+
     <label for="check-input-file-selector">Check Input</label>
     <input type="file" id="check-input-file-selector" accept=".json">
 
-    <div class="slidecontainer">
-        <input type="range" min="0" max="0" value="50" class="slider" id="slideRange">
-    </div>
+    <br><br>
+
+    <input type="range" min="0" max="0" value="50" class="slider" id="slideRange">
 
     <script type="module" src="/src/main.mjs"></script>
 </body>

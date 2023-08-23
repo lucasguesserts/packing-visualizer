@@ -43,6 +43,32 @@ class Slider {
   }
 }
 
+class Button {
+  constructor (button) {
+    this.button = button
+    this.button.checked = false
+    this.emptySpaces = []
+    this.button.onclick = () => {
+      this._setVisibility()
+    }
+  }
+
+  addEmptySpace (emptySpace) {
+    this.emptySpaces.push(emptySpace.cuboid)
+  }
+
+  reset () {
+    this.slider.empty_spaces = []
+    this.button.checked = false
+  }
+
+  _setVisibility () {
+    for (const emptySpace of this.emptySpaces) {
+      emptySpace.visible = this.button.checked
+    }
+  }
+}
+
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial
   static EDGE = {
@@ -134,6 +160,38 @@ class LargeObject {
   }
 }
 
+class EmptySpace {
+  static MATERIAL = THREE.MeshToonMaterial
+
+  constructor (l, w, h, x, y, z) {
+    this.cuboid = EmptySpace.makeCuboid(l, w, h, x, y, z)
+  }
+
+  draw (scene) {
+    scene.add(this.cuboid)
+  }
+
+  static makeCuboid (l, w, h, x, y, z) {
+    const geometry = new THREE.BoxGeometry(l, w, h)
+    const material = new EmptySpace.MATERIAL({
+      emissive: randomColor({
+        luminosity: 'light'
+      }),
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.5
+    })
+    const cuboid = new THREE.Mesh(geometry, material)
+    cuboid.visible = false
+    cuboid.position.set(
+      x + l / 2,
+      y + w / 2,
+      z + h / 2
+    )
+    return cuboid
+  }
+}
+
 class Artist {
   get CAMERA_ZOOM_OUT_ON_LOAD () {
     return 1.5
@@ -151,11 +209,12 @@ class Artist {
     OutputChecker.check(this.data)
   }
 
-  draw (scene, slider, camera) {
+  draw (scene, camera, slider, emptySpacesButton) {
     slider.reset()
     this._cleanScene(scene)
     this._addLargeObject(scene)
     this._addSmallItems(scene, slider)
+    this._addEmptySpaces(scene, emptySpacesButton)
     this._addAxes(scene)
     this._moveCamera(camera)
   }
@@ -187,6 +246,23 @@ class Artist {
       )
       smallItem.draw(scene)
       slider.addSmallItem(smallItem)
+    }
+  }
+
+  _addEmptySpaces (scene, emptySpacesButton) {
+    if (Object.hasOwn(this.data, 'appendix') && Object.hasOwn(this.data.appendix, 'empty_spaces')) {
+      for (const emptySpaceData of this.data.appendix.empty_spaces) {
+        const emptySpace = new EmptySpace(
+          emptySpaceData.measurement.y,
+          emptySpaceData.measurement.z,
+          emptySpaceData.measurement.x,
+          emptySpaceData.position.y,
+          emptySpaceData.position.z,
+          emptySpaceData.position.x
+        )
+        emptySpace.draw(scene)
+        emptySpacesButton.addEmptySpace(emptySpace)
+      }
     }
   }
 
@@ -237,4 +313,4 @@ class Reader {
   }
 }
 
-export { Slider, SmallItem, LargeObject, Artist, Reader }
+export { Slider, SmallItem, LargeObject, EmptySpace, Artist, Reader, Button }
