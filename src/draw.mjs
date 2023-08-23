@@ -3,7 +3,7 @@ import randomColor from 'randomcolor'
 import OutputChecker from './check/OutputChecker.mjs'
 import OutputConversor from './convert/output/OutputConversor.mjs'
 
-const supportedOutputFileFormatVersion = '0.3.0'
+const supportedOutputFileFormatVersion = '0.4.0'
 
 class Slider {
   constructor (slider) {
@@ -126,7 +126,7 @@ class LargeObject {
   }
 }
 
-class FileLoader {
+class Artist {
   get CAMERA_ZOOM_OUT_ON_LOAD () {
     return 1.5
   }
@@ -135,21 +135,12 @@ class FileLoader {
     return 3
   }
 
-  constructor (file, scene, slider, camera) {
-    if (file.type && !file.type.endsWith('json')) {
-      console.log('File is not a json.', file.type, file)
-      return
+  constructor (data) {
+    this.data = data
+    if (this.data.version !== supportedOutputFileFormatVersion) {
+      this.data = OutputConversor.convert(this.data, supportedOutputFileFormatVersion)
     }
-    const reader = new FileReader() // eslint-disable-line no-undef
-    reader.addEventListener('load', (event) => {
-      this.data = JSON.parse(event.target.result)
-      if (this.data.version !== supportedOutputFileFormatVersion) {
-        this.data = OutputConversor.convert(this.data, supportedOutputFileFormatVersion)
-      }
-      OutputChecker.check(this.data)
-      this.draw(scene, slider, camera)
-    })
-    reader.readAsText(file)
+    OutputChecker.check(this.data)
   }
 
   draw (scene, slider, camera) {
@@ -209,4 +200,4 @@ class FileLoader {
   }
 }
 
-export { Slider, SmallItem, LargeObject, FileLoader }
+export { Slider, SmallItem, LargeObject, Artist }

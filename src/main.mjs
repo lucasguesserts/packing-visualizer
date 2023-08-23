@@ -17,11 +17,21 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setClearColor(0x8c92ac, 1)
 document.body.appendChild(renderer.domElement)
 
-// large object and small items
+// draw
 const fileSelector = document.getElementById('file-selector')
 fileSelector.addEventListener('change', (event) => {
-  const fileList = event.target.files
-  const fileLoader = new Draw.FileLoader(fileList[0], scene, slider, camera)
+  const fileToRead = event.target.files[0]
+  if (fileToRead.type && !fileToRead.type.endsWith('json')) {
+    console.error(`File '${fileToRead}' is not a json, it is a ${fileToRead.type}.`)
+    return
+  }
+  const reader = new FileReader() // eslint-disable-line no-undef
+  reader.addEventListener('load', (event) => {
+    const data = JSON.parse(event.target.result)
+    const artist = new Draw.Artist(data)
+    artist.draw(scene, slider, camera)
+  })
+  reader.readAsText(fileToRead)
 })
 
 // check input
