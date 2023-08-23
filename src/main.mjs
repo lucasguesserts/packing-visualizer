@@ -18,36 +18,18 @@ renderer.setClearColor(0x8c92ac, 1)
 document.body.appendChild(renderer.domElement)
 
 // draw
-const fileSelector = document.getElementById('file-selector')
-fileSelector.addEventListener('change', (event) => {
-  const fileToRead = event.target.files[0]
-  if (fileToRead.type && !fileToRead.type.endsWith('json')) {
-    console.error(`File '${fileToRead}' is not a json, it is a ${fileToRead.type}.`)
-    return
-  }
-  const reader = new FileReader() // eslint-disable-line no-undef
-  reader.addEventListener('load', (event) => {
-    const data = JSON.parse(event.target.result)
-    const artist = new Draw.Artist(data)
-    artist.draw(scene, slider, camera)
-  })
-  reader.readAsText(fileToRead)
+const drawFileSelector = document.getElementById('draw-file-selector')
+const drawReader = new Draw.Reader(drawFileSelector)
+drawReader.setup((data) => {
+  const artist = new Draw.Artist(data)
+  artist.draw(scene, slider, camera)
 })
 
 // check input
-const checkInput = document.getElementById('check-input')
-checkInput.addEventListener('change', (event) => {
-  const fileToRead = event.target.files[0]
-  if (fileToRead.type && !fileToRead.type.endsWith('json')) {
-    console.error(`File '${fileToRead}' is not a json, it is a ${fileToRead.type}.`)
-    return
-  }
-  const reader = new FileReader() // eslint-disable-line no-undef
-  reader.addEventListener('load', (event) => {
-    const data = JSON.parse(event.target.result)
-    InputChecker.check(data)
-  })
-  reader.readAsText(fileToRead)
+const inputCheckFileSelector = document.getElementById('check-input-file-selector')
+const inputCheckReader = new Draw.Reader(inputCheckFileSelector)
+inputCheckReader.setup((data) => {
+  InputChecker.check(data)
 })
 
 // orbit controls
