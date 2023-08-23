@@ -1,4 +1,5 @@
 import C_0_2_0_to_0_3_0 from './0_2_0_to_0_3_0.mjs' // eslint-disable-line camelcase
+import C_0_3_0_to_0_4_0 from './0_3_0_to_0_4_0.mjs' // eslint-disable-line camelcase
 import OutputConversionError from './OutputConversionError.mjs'
 
 function joinVersions (lhs, rhs) {
@@ -10,6 +11,8 @@ class OutputConversor {
     switch (joinVersions(data.version, targetVersion)) {
       case joinVersions('0.2.0', '0.3.0'):
         return C_0_2_0_to_0_3_0(data)
+      case joinVersions('0.3.0', '0.4.0'):
+        return C_0_3_0_to_0_4_0(data)
       default:
         throw new OutputConversionError(data.version, targetVersion)
     }
