@@ -17,27 +17,19 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setClearColor(0x8c92ac, 1)
 document.body.appendChild(renderer.domElement)
 
-// large object and small items
-const fileSelector = document.getElementById('file-selector')
-fileSelector.addEventListener('change', (event) => {
-  const fileList = event.target.files
-  const fileLoader = new Draw.FileLoader(fileList[0], scene, slider, camera)
+// draw
+const drawFileSelector = document.getElementById('draw-file-selector')
+const drawReader = new Draw.Reader(drawFileSelector)
+drawReader.setup((data) => {
+  const artist = new Draw.Artist(data)
+  artist.draw(scene, slider, camera)
 })
 
 // check input
-const checkInput = document.getElementById('check-input')
-checkInput.addEventListener('change', (event) => {
-  const file = event.target.files[0]
-  if (file.type && !file.type.endsWith('json')) {
-    console.log('File is not a json.', file.type, file)
-    return
-  }
-  const reader = new FileReader() // eslint-disable-line no-undef
-  reader.addEventListener('load', (event) => {
-    const data = JSON.parse(event.target.result)
-    InputChecker.check(data)
-  })
-  reader.readAsText(file)
+const inputCheckFileSelector = document.getElementById('check-input-file-selector')
+const inputCheckReader = new Draw.Reader(inputCheckFileSelector)
+inputCheckReader.setup((data) => {
+  InputChecker.check(data)
 })
 
 // orbit controls

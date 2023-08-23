@@ -4,6 +4,7 @@
     "ajv": "8.12.0",
     "danfojs-node": "1.1.2",
     "esm": "3.2.25",
+    "just-clone": "^6.2.0",
     "randomcolor": "0.6.2",
     "three": "0.151.3"
   },
