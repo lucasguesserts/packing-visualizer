@@ -21,6 +21,14 @@ class Slider {
     this.object.cuboid.push(smallItem.cuboid)
     this.object.edges.push(smallItem.edges)
     ++this.slider.max
+    ++this.slider.value
+  }
+
+  reset () {
+    this.slider.value = 0
+    this.slider.max = 0
+    this.object.cuboid = []
+    this.object.edges = []
   }
 
   _setVisibility () {
@@ -144,6 +152,7 @@ class Artist {
   }
 
   draw (scene, slider, camera) {
+    slider.reset()
     this._cleanScene(scene)
     this._addLargeObject(scene)
     this._addSmallItems(scene, slider)
