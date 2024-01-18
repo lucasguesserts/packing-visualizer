@@ -43,6 +43,40 @@ const axes = new THREE.AxesHelper()
 axes.scale.set(10, 10, 10)
 scene.add(axes)
 
+// raycaster
+// change the color of the small items to red when they are in the raycaster
+// code adapted from:
+//    https://threejs.org/docs/#api/en/core/Raycaster
+//    https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
+const raycaster = new THREE.Raycaster()
+const pointer = new THREE.Vector2()
+function onPointerMove (event) {
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1
+}
+
+let previousMarkedObject = null
+let previousMarkedObjectColor = null
+function raycasterMark () {
+  const RED = 0xff0000
+  raycaster.setFromCamera(pointer, camera)
+  const intersects = raycaster.intersectObjects(scene.children)
+  if (previousMarkedObject) {
+    previousMarkedObject.material.emissive.set(previousMarkedObjectColor)
+    previousMarkedObject = null
+    previousMarkedObjectColor = null
+  }
+  for (const obj of intersects) {
+    if (obj.object instanceof THREE.Mesh) {
+      previousMarkedObject = obj.object
+      previousMarkedObjectColor = previousMarkedObject.material.emissive.clone()
+      previousMarkedObject.material.emissive.set(RED)
+      break
+    }
+  }
+}
+window.addEventListener('mousemove', onPointerMove)
+
 // window resize
 // https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
 window.addEventListener('resize', onWindowResize, false)
@@ -56,6 +90,7 @@ function animate () {
   requestAnimationFrame(animate) // eslint-disable-line no-undef
   controls.update()
   camera.updateMatrixWorld()
+  raycasterMark()
   renderer.render(scene, camera)
 }
 animate()
