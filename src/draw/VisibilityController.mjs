@@ -74,7 +74,7 @@ class VisibilityController {
     }
     // current empty spaces are visible
     // if button is checked
-    if (this.slider.value > 0) {
+    if (this.slider.value > 0 && this.emptySpaceSet.length > 0) {
       for (const emptySpace of this.emptySpaceSet[this.slider.value - 1]) {
         emptySpace.cuboid.visible = this.button.checked
       }
