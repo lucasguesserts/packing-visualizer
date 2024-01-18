@@ -44,18 +44,12 @@ axes.scale.set(10, 10, 10)
 scene.add(axes)
 
 // window resize
-// https://jsfiddle.net/92sap05q/1/
-const tanFOV = Math.tan(((Math.PI / 180) * camera.fov / 2))
-const windowHeight = window.innerHeight
+// https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
 window.addEventListener('resize', onWindowResize, false)
-
 function onWindowResize (event) {
   camera.aspect = window.innerWidth / window.innerHeight
-  camera.fov = (360 / Math.PI) * Math.atan(tanFOV * (window.innerHeight / windowHeight))
   camera.updateProjectionMatrix()
-  camera.lookAt(scene.position)
   renderer.setSize(window.innerWidth, window.innerHeight)
-  renderer.render(scene, camera)
 }
 
 function animate () {
