@@ -99,6 +99,12 @@ class Artist {
       this.CAMERA_ZOOM_OUT_ON_LOAD * this.data.large_object.measurement.z,
       this.CAMERA_ZOOM_OUT_ON_LOAD * this.data.large_object.measurement.x
     )
+    camera.far = 10 * Math.max(
+      this.data.large_object.measurement.y,
+      this.data.large_object.measurement.x,
+      this.data.large_object.measurement.z
+    )
+    camera.updateProjectionMatrix()
   }
 }
 

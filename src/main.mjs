@@ -6,7 +6,7 @@ import InputChecker from './check/InputChecker.mjs'
 
 // scene, camera, render
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 100)
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
   preserveDrawingBuffer: true,
@@ -61,6 +61,7 @@ function onWindowResize (event) {
 function animate () {
   requestAnimationFrame(animate) // eslint-disable-line no-undef
   controls.update()
+  camera.updateMatrixWorld()
   renderer.render(scene, camera)
 }
 animate()
