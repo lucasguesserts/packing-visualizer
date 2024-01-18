@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import * as Draw from './Draw/draw.mjs'
+import * as Draw from './draw/draw.mjs'
 
 import InputChecker from './check/InputChecker.mjs'
 

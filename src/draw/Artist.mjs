@@ -2,9 +2,9 @@ import * as THREE from 'three'
 import OutputChecker from '../check/OutputChecker.mjs'
 import OutputConversor from '../convert/output/OutputConversor.mjs'
 
-import SmallItem from './SmallItem.mjs'
-import LargeObject from './LargeObject.mjs'
-import EmptySpace from './EmptySpace.mjs'
+import SmallItem from '../objects/SmallItem.mjs'
+import LargeObject from '../objects/LargeObject.mjs'
+import EmptySpace from '../objects/EmptySpace.mjs'
 
 const supportedOutputFileFormatVersion = '0.5.0'
 
