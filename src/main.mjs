@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import * as Draw from './draw.mjs'
+import * as Draw from './draw/draw.mjs'
 
 import InputChecker from './check/InputChecker.mjs'
 
 // scene, camera, render
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 100)
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
   preserveDrawingBuffer: true,
@@ -43,24 +43,54 @@ const axes = new THREE.AxesHelper()
 axes.scale.set(10, 10, 10)
 scene.add(axes)
 
-// window resize
-// https://jsfiddle.net/92sap05q/1/
-const tanFOV = Math.tan(((Math.PI / 180) * camera.fov / 2))
-const windowHeight = window.innerHeight
-window.addEventListener('resize', onWindowResize, false)
+// raycaster
+// change the color of the small items to red when they are in the raycaster
+// code adapted from:
+//    https://threejs.org/docs/#api/en/core/Raycaster
+//    https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
+const raycaster = new THREE.Raycaster()
+const pointer = new THREE.Vector2()
+function onPointerMove (event) {
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1
+}
 
+let previousMarkedObject = null
+let previousMarkedObjectColor = null
+function raycasterMark () {
+  const RED = 0xff0000
+  raycaster.setFromCamera(pointer, camera)
+  const intersects = raycaster.intersectObjects(scene.children)
+  if (previousMarkedObject) {
+    previousMarkedObject.material.emissive.set(previousMarkedObjectColor)
+    previousMarkedObject = null
+    previousMarkedObjectColor = null
+  }
+  for (const obj of intersects) {
+    if (obj.object instanceof THREE.Mesh) {
+      previousMarkedObject = obj.object
+      previousMarkedObjectColor = previousMarkedObject.material.emissive.clone()
+      previousMarkedObject.material.emissive.set(RED)
+      break
+    }
+  }
+}
+window.addEventListener('mousemove', onPointerMove)
+
+// window resize
+// https://github.com/mrdoob/three.js/blob/master/examples/webgl_interactive_cubes.html
+window.addEventListener('resize', onWindowResize, false)
 function onWindowResize (event) {
   camera.aspect = window.innerWidth / window.innerHeight
-  camera.fov = (360 / Math.PI) * Math.atan(tanFOV * (window.innerHeight / windowHeight))
   camera.updateProjectionMatrix()
-  camera.lookAt(scene.position)
   renderer.setSize(window.innerWidth, window.innerHeight)
-  renderer.render(scene, camera)
 }
 
 function animate () {
   requestAnimationFrame(animate) // eslint-disable-line no-undef
   controls.update()
+  camera.updateMatrixWorld()
+  raycasterMark()
   renderer.render(scene, camera)
 }
 animate()
