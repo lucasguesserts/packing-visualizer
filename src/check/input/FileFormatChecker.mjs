@@ -3,6 +3,7 @@ import v_0_0_0 from '../../file_format/input/0_0_0.json' // eslint-disable-line 
 import v_0_1_0 from '../../file_format/input/0_1_0.json' // eslint-disable-line camelcase
 import v_0_2_0 from '../../file_format/input/0_2_0.json' // eslint-disable-line camelcase
 import v_0_3_0 from '../../file_format/input/0_3_0.json' // eslint-disable-line camelcase
+import v_0_4_0 from '../../file_format/input/0_4_0.json' // eslint-disable-line camelcase
 
 class FileFormatChecker {
   constructor (data) {
@@ -31,6 +32,8 @@ class FileFormatChecker {
         return ajv.compile(v_0_2_0)
       case '0.3.0':
         return ajv.compile(v_0_3_0)
+      case '0.4.0':
+        return ajv.compile(v_0_4_0)
       default:
         return this._invalidVersionValidator()
     }
