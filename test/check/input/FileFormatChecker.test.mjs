@@ -125,3 +125,35 @@ describe('0.5.0', () => {
     check(path.join(subdirName, 'failure'), caseName, false)
   }
 })
+
+describe('0.6.0', () => {
+  const subdirName = '0_6_0/'
+  const successCases = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8'
+  ]
+  for (const caseName of successCases) {
+    check(path.join(subdirName, 'success'), caseName, true)
+  }
+  const failureCases = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10'
+  ]
+  for (const caseName of failureCases) {
+    check(path.join(subdirName, 'failure'), caseName, false)
+  }
+})
