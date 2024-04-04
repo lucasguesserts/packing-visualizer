@@ -1,0 +1,28 @@
+{
+  "type": "input",
+  "version": "0.8.0",
+  "large_object": {
+    "measurement": {
+      "x": 5,
+      "y": 5,
+      "z": 5
+    },
+    "constraint": {
+      "weight_distribution": {
+        "model": "valid_name",
+        "data": []
+      }
+    }
+  },
+  "small_items": [
+    {
+      "profit": 10,
+      "quantity": 100,
+      "measurement": {
+        "x": 1,
+        "y": 1,
+        "z": 1
+      }
+    }
+  ]
+}
