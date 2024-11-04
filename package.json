@@ -14,7 +14,7 @@
     "vite": "4.3.0"
   },
   "scripts": {
-    "start": "vite",
+    "start": "vite dev --host",
     "test": "npx standard && node --experimental-vm-modules node_modules/jest/bin/jest.js --testRegex '.test.mjs'",
     "enforce-standard": "standard --fix"
   },
