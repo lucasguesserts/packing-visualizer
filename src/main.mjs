@@ -38,11 +38,6 @@ inputCheckReader.setup((data) => {
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.update()
 
-// axes
-const axes = new THREE.AxesHelper()
-axes.scale.set(10, 10, 10)
-scene.add(axes)
-
 // raycaster
 // change the color of the small items to red when they are in the raycaster
 // code adapted from:

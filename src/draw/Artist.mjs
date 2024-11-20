@@ -85,11 +85,15 @@ class Artist {
 
   _addAxes (scene) {
     const axes = new THREE.AxesHelper()
+    const RED = new THREE.Color().setHex(0xff0000)
+    const GREEN = new THREE.Color().setHex(0x00ff00)
+    const BLUE = new THREE.Color().setHex(0x0000ff)
     axes.scale.set(
       this.AXES_HELPER_RELATIVE_SIZE * this.data.large_object.measurement.y,
       this.AXES_HELPER_RELATIVE_SIZE * this.data.large_object.measurement.z,
       this.AXES_HELPER_RELATIVE_SIZE * this.data.large_object.measurement.x
     )
+    axes.setColors(GREEN, BLUE, RED)
     scene.add(axes)
   }
 
