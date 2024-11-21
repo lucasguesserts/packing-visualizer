@@ -1,8 +1,10 @@
 import * as THREE from 'three'
+
 import OutputChecker from '../check/OutputChecker.mjs'
 import OutputConversor from '../convert/output/OutputConversor.mjs'
 
 import SmallItem from '../objects/SmallItem.mjs'
+import SmallItemColors from '../objects/SmallItemColors.mjs'
 import LargeObject from '../objects/LargeObject.mjs'
 import EmptySpace from '../objects/EmptySpace.mjs'
 
@@ -51,6 +53,7 @@ class Artist {
   }
 
   _addSmallItems (scene, slider) {
+    const colors = new SmallItemColors(this.data.small_items)
     for (const item of this.data.small_items) {
       const smallItem = new SmallItem(
         item.measurement.y,
@@ -58,7 +61,8 @@ class Artist {
         item.measurement.x,
         item.position.y,
         item.position.z,
-        item.position.x
+        item.position.x,
+        colors.getColor(item)
       )
       smallItem.draw(scene)
       slider.addSmallItem(smallItem)
