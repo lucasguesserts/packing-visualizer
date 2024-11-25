@@ -7,6 +7,7 @@ import SmallItem from '../objects/SmallItem.mjs'
 import SmallItemColors from '../objects/SmallItemColors.mjs'
 import LargeObject from '../objects/LargeObject.mjs'
 import EmptySpace from '../objects/EmptySpace.mjs'
+import EmptySpaceColors from '../objects/EmptySpaceColors.mjs'
 
 const supportedOutputFileFormatVersion = '0.5.0'
 
@@ -71,6 +72,7 @@ class Artist {
 
   _addEmptySpaces (scene, emptySpacesButton) {
     if (Object.hasOwn(this.data, 'appendix') && Object.hasOwn(this.data.appendix, 'empty_spaces')) {
+      const colors = new EmptySpaceColors(this.data.appendix.empty_spaces)
       for (const emptySpaceSetData of this.data.appendix.empty_spaces) {
         const emptySpaceSet = emptySpaceSetData.map(
           (emptySpaceData) => new EmptySpace(
@@ -79,7 +81,8 @@ class Artist {
             emptySpaceData.measurement.x,
             emptySpaceData.position.y,
             emptySpaceData.position.z,
-            emptySpaceData.position.x
+            emptySpaceData.position.x,
+            colors.getColor(emptySpaceData)
           ))
         emptySpaceSet.forEach(emptySpace => emptySpace.draw(scene))
         emptySpacesButton.addEmptySpaceSet(emptySpaceSet)

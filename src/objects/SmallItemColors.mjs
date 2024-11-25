@@ -1,9 +1,9 @@
 import randomColor from 'randomcolor'
 
 class SmallItemColors {
-  constructor (small_items) {
+  constructor (smallItems) {
     this.color_map = new Map()
-    for (const item of small_items) {
+    for (const item of smallItems) {
       const hash = this.getHash(item)
       if (!this.color_map.has(hash)) {
         this.color_map.set(hash, randomColor({ luminosity: 'dark' }))
