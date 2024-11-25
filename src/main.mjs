@@ -16,7 +16,7 @@ const slider = document.getElementById('slideRange')
 const emptySpacesButton = document.getElementById('display-empty-space')
 const visibilityController = new Draw.VisibilityController(slider, emptySpacesButton)
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setClearColor(0x8c92ac, 1)
+renderer.setClearColor(0xffffff, 1)
 document.body.appendChild(renderer.domElement)
 
 // draw
