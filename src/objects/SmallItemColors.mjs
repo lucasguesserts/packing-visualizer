@@ -13,7 +13,9 @@ class SmallItemColors {
   }
 
   getHash (item) {
-    return 1000000 * item.measurement.z + 1000 * item.measurement.y + item.measurement.x
+    const measurements = [item.measurement.x, item.measurement.y, item.measurement.z]
+    measurements.sort()
+    return 1000000 * measurements[0] + 1000 * measurements[1] + measurements[2]
   }
 
   getColor (item) {
