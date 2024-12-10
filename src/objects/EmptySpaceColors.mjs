@@ -1,7 +1,7 @@
 import randomColor from 'randomcolor'
 
 class EmptySpaceColors {
-  constructor(emptySpacesArray) {
+  constructor (emptySpacesArray) {
     this.color_map = new Map()
     for (const emptySpaces of emptySpacesArray) {
       for (const emptySpace of emptySpaces) {
@@ -12,14 +12,13 @@ class EmptySpaceColors {
         }
       }
     }
-    return
   }
 
-  getHash(emptySpace) {
+  getHash (emptySpace) {
     return 1000000 * emptySpace.measurement.z + 1000 * emptySpace.measurement.y + emptySpace.measurement.x
   }
 
-  getColor(emptySpace) {
+  getColor (emptySpace) {
     const hash = this.getHash(emptySpace)
     return this.color_map.get(hash)
   }
