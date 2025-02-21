@@ -9,6 +9,13 @@ npm install
 npx start
 ```
 
+## [How to run as a static site](https://vite.dev/guide/static-deploy.html)
+
+```sh
+npm run build
+npm run preview
+```
+
 ## How to run with Docker
 
 ```sh
