@@ -1,23 +1,20 @@
 import * as THREE from 'three'
-import randomColor from 'randomcolor'
 
 class EmptySpace {
   static MATERIAL = THREE.MeshToonMaterial
 
-  constructor (l, w, h, x, y, z) {
-    this.cuboid = EmptySpace.makeCuboid(l, w, h, x, y, z)
+  constructor (l, w, h, x, y, z, c) {
+    this.cuboid = EmptySpace.makeCuboid(l, w, h, x, y, z, c)
   }
 
   draw (scene) {
     scene.add(this.cuboid)
   }
 
-  static makeCuboid (l, w, h, x, y, z) {
+  static makeCuboid (l, w, h, x, y, z, c) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new EmptySpace.MATERIAL({
-      emissive: randomColor({
-        luminosity: 'light'
-      }),
+      emissive: c,
       side: THREE.DoubleSide,
       transparent: true,
       opacity: 0.5

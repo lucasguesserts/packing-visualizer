@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import randomColor from 'randomcolor'
 
 class SmallItem {
   static MATERIAL = THREE.MeshToonMaterial
@@ -8,8 +7,8 @@ class SmallItem {
     LINE_WIDTH: 3
   }
 
-  constructor (l, w, h, x, y, z) {
-    this.cuboid = SmallItem.makeCuboid(l, w, h, x, y, z)
+  constructor (l, w, h, x, y, z, c) {
+    this.cuboid = SmallItem.makeCuboid(l, w, h, x, y, z, c)
     this.edges = SmallItem.makeEdges(l, w, h, x, y, z)
   }
 
@@ -18,10 +17,10 @@ class SmallItem {
     scene.add(this.edges)
   }
 
-  static makeCuboid (l, w, h, x, y, z) {
+  static makeCuboid (l, w, h, x, y, z, c) {
     const geometry = new THREE.BoxGeometry(l, w, h)
     const material = new SmallItem.MATERIAL({
-      emissive: randomColor({ luminosity: 'dark' }),
+      emissive: c,
       side: THREE.DoubleSide
     })
     const cuboid = new THREE.Mesh(geometry, material)

@@ -1,10 +1,13 @@
 import * as THREE from 'three'
+
 import OutputChecker from '../check/OutputChecker.mjs'
 import OutputConversor from '../convert/output/OutputConversor.mjs'
 
 import SmallItem from '../objects/SmallItem.mjs'
+import SmallItemColors from '../objects/SmallItemColors.mjs'
 import LargeObject from '../objects/LargeObject.mjs'
 import EmptySpace from '../objects/EmptySpace.mjs'
+import EmptySpaceColors from '../objects/EmptySpaceColors.mjs'
 
 const supportedOutputFileFormatVersion = '0.5.0'
 
@@ -51,6 +54,7 @@ class Artist {
   }
 
   _addSmallItems (scene, slider) {
+    const colors = new SmallItemColors(this.data.small_items)
     for (const item of this.data.small_items) {
       const smallItem = new SmallItem(
         item.measurement.y,
@@ -58,7 +62,8 @@ class Artist {
         item.measurement.x,
         item.position.y,
         item.position.z,
-        item.position.x
+        item.position.x,
+        colors.getColor(item)
       )
       smallItem.draw(scene)
       slider.addSmallItem(smallItem)
@@ -67,6 +72,7 @@ class Artist {
 
   _addEmptySpaces (scene, emptySpacesButton) {
     if (Object.hasOwn(this.data, 'appendix') && Object.hasOwn(this.data.appendix, 'empty_spaces')) {
+      const colors = new EmptySpaceColors(this.data.appendix.empty_spaces)
       for (const emptySpaceSetData of this.data.appendix.empty_spaces) {
         const emptySpaceSet = emptySpaceSetData.map(
           (emptySpaceData) => new EmptySpace(
@@ -75,7 +81,8 @@ class Artist {
             emptySpaceData.measurement.x,
             emptySpaceData.position.y,
             emptySpaceData.position.z,
-            emptySpaceData.position.x
+            emptySpaceData.position.x,
+            colors.getColor(emptySpaceData)
           ))
         emptySpaceSet.forEach(emptySpace => emptySpace.draw(scene))
         emptySpacesButton.addEmptySpaceSet(emptySpaceSet)
